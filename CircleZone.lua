@@ -2,16 +2,20 @@ CircleZone = {}
 -- Inherits from PolyZone
 setmetatable(CircleZone, { __index = PolyZone })
 
+local function _drawMarker(...)
+  return Citizen.InvokeNative(0x2A32FAA57B937173, ...)
+end
+
 function CircleZone:draw()
   local center = self.center
   local debugColor = self.debugColor
   local r, g, b = debugColor[1], debugColor[2], debugColor[3]
-  if self.useZ then
+  if true then
     local radius = self.radius
-    DrawMarker(28, center.x, center.y, center.z, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, radius, radius, radius, r, g, b, 48, false, false, 2, nil, nil, false)
+    _drawMarker(0x50638AB9, center.x, center.y, center.z, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, radius, radius, radius, r, g, b, 48, false, false, 2, nil, nil, false)
   else
     local diameter = self.diameter
-    DrawMarker(1, center.x, center.y, -200.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, diameter, diameter, 400.0, r, g, b, 96, false, false, 2, nil, nil, false)
+    _drawMarker(0x94FDAE17, center.x, center.y, -200.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, diameter, diameter, 400.0, r, g, b, 96, false, false, 2, nil, nil, false)
   end
 end
 

@@ -27,6 +27,8 @@ RegisterCommand("pzcreate", function(src, args)
     })
     return
   end
+
+  Wait(100)
   TriggerEvent("polyzone:pzcreate", zoneType, name, args)
 end)
 

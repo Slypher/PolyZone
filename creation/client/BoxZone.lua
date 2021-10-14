@@ -1,7 +1,7 @@
 local function handleInput(useZ, heading, length, width, center)
   if not useZ then
     local scaleDelta, headingDelta = 0.2, 5
-    BlockWeaponWheelThisFrame()
+    --BlockWeaponWheelThisFrame()
     DisableControlAction(0, 36, true)
     if IsDisabledControlPressed(0, 36) then -- ctrl held down
       scaleDelta, headingDelta = 0.05, 1
@@ -43,7 +43,7 @@ function handleZ(minZ, maxZ)
     delta = 0.05
   end
 
-  BlockWeaponWheelThisFrame()
+  --BlockWeaponWheelThisFrame()
   DisableControlAction(0, 81, true)
   if IsDisabledControlJustPressed(0, 81) then
     if IsControlPressed(0, 19) then -- alt held down

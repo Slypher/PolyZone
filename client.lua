@@ -106,6 +106,10 @@ local function _calculatePolygonArea(points)
   return abs(0.5 * sum)
 end
 
+-- https://github.com/citizenfx/fivem/blob/45c63bcfd6e87b0326131c5a266ac3c0c4623f16/code/components/extra-natives-rdr3/src/GraphicsNatives.cpp#L175-L207
+local function _drawPoly(...)
+  return Citizen.InvokeNative(`DRAW_POLY` & 0xFFFFFFFF, ...)
+end
 
 -- Debug drawing functions
 function _drawWall(p1, p2, minZ, maxZ, r, g, b, a)
@@ -114,15 +118,20 @@ function _drawWall(p1, p2, minZ, maxZ, r, g, b, a)
   local bottomRight = vector3(p2.x, p2.y, minZ)
   local topRight = vector3(p2.x, p2.y, maxZ)
   
-  DrawPoly(bottomLeft,topLeft,bottomRight,r,g,b,a)
-  DrawPoly(topLeft,topRight,bottomRight,r,g,b,a)
-  DrawPoly(bottomRight,topRight,topLeft,r,g,b,a)
-  DrawPoly(bottomRight,topLeft,bottomLeft,r,g,b,a)
+  _drawPoly(bottomLeft,topLeft,bottomRight,r,g,b,a)
+  _drawPoly(topLeft,topRight,bottomRight,r,g,b,a)
+  _drawPoly(bottomRight,topRight,topLeft,r,g,b,a)
+  _drawPoly(bottomRight,topLeft,bottomLeft,r,g,b,a)
 end
 
 function PolyZone:TransformPoint(point)
   -- No point transform necessary for regular PolyZones, unlike zones like Entity Zones, whose points can be rotated and offset
   return point
+end
+
+-- https://github.com/citizenfx/fivem/blob/45c63bcfd6e87b0326131c5a266ac3c0c4623f16/code/components/extra-natives-rdr3/src/GraphicsNatives.cpp#L146-L173
+local function _drawLine(...)
+  return Citizen.InvokeNative(`DRAW_LINE` & 0xFFFFFFFF, ...)
 end
 
 function PolyZone:draw()
@@ -139,11 +148,11 @@ function PolyZone:draw()
   local points = self.points
   for i=1, #points do
     local point = self:TransformPoint(points[i])
-    DrawLine(point.x, point.y, minZ, point.x, point.y, maxZ, oR, oG, oB, 164)
+    _drawLine(point.x, point.y, minZ, point.x, point.y, maxZ, oR, oG, oB, 164)
 
     if i < #points then
       local p2 = self:TransformPoint(points[i+1])
-      DrawLine(point.x, point.y, maxZ, p2.x, p2.y, maxZ, oR, oG, oB, 184)
+      _drawLine(point.x, point.y, maxZ, p2.x, p2.y, maxZ, oR, oG, oB, 184)
       _drawWall(point, p2, minZ, maxZ, wR, wG, wB, 48)
     end
   end
@@ -151,7 +160,7 @@ function PolyZone:draw()
   if #points > 2 then
     local firstPoint = self:TransformPoint(points[1])
     local lastPoint = self:TransformPoint(points[#points])
-    DrawLine(firstPoint.x, firstPoint.y, maxZ, lastPoint.x, lastPoint.y, maxZ, oR, oG, oB, 184)
+    _drawLine(firstPoint.x, firstPoint.y, maxZ, lastPoint.x, lastPoint.y, maxZ, oR, oG, oB, 184)
     _drawWall(firstPoint, lastPoint, minZ, maxZ, wR, wG, wB, 48)
   end
 end
@@ -178,7 +187,7 @@ local function _drawGrid(poly)
     local line = lines[i]
     local min = line.min
     local max = line.max
-    DrawLine(min.x + 0.0, min.y + 0.0, maxZ + 0.0, max.x + 0.0, max.y + 0.0, maxZ + 0.0, r, g, b, 196)
+    _drawLine(min.x + 0.0, min.y + 0.0, maxZ + 0.0, max.x + 0.0, max.y + 0.0, maxZ + 0.0, r, g, b, 196)
   end
 end
 

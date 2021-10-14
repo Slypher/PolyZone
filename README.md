@@ -1,15 +1,15 @@
-# PolyZone
-PolyZone is a FiveM mod to define zones of different shapes and test whether a point is inside or outside of the zone
+# PolyZone (Version for RedM)
+PolyZone is a RedM mod to define zones of different shapes and test whether a point is inside or outside of the zone
 
-![PolyZone around the prison](https://i.imgur.com/InKNaoL.jpg)
+![PolyZone around the barn](https://cdn.discordapp.com/attachments/878617087071903745/898321403407904798/unknown.png)
 
 ## Download
 
-Click [here](https://github.com/mkafrin/PolyZone/releases) to go to the releases page and download the latest release
+Click [here](https://github.com/Slypher/PolyZone/releases) to go to the releases page and download the latest release
 
 ## Using PolyZone in a Script
 
-In order to use PolyZone in your script, you must _at least_ include PolyZone's client.lua directly in your __resource.lua or fxmanifest.lua. You can do that by using FiveM's @ syntax for importing resource files:
+In order to use PolyZone in your script, you must _at least_ include PolyZone's client.lua directly in your __resource.lua or fxmanifest.lua. You can do that by using RedM's @ syntax for importing resource files:
 
 ```lua
 client_scripts {
