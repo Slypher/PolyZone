@@ -10,7 +10,7 @@ function CircleZone:draw()
   local center = self.center
   local debugColor = self.debugColor
   local r, g, b = debugColor[1], debugColor[2], debugColor[3]
-  if true then
+  if self.useZ then
     local radius = self.radius
     _drawMarker(0x50638AB9, center.x, center.y, center.z, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, radius, radius, radius, r, g, b, 48, false, false, 2, nil, nil, false)
   else
