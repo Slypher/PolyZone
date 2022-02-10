@@ -542,7 +542,7 @@ function PolyZone:onPointInOut(getPointCb, onPointInOutCb, waitInMS)
   if waitInMS ~= nil then _waitInMS = waitInMS end
 
   Citizen.CreateThread(function()
-    local isInside = nil
+    local isInside = false
     while not self.destroyed do
       if not self.paused then
         local point = getPointCb()
